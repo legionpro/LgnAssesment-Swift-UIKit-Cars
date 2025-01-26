@@ -26,6 +26,7 @@ enum HttpMethod: String {
 enum Endpoint {
     case justGet
 
+    
     var path: String {
         switch self {
         case .justGet:
