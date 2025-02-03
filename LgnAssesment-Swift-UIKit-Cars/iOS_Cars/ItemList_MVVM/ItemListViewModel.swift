@@ -31,6 +31,7 @@ extension ItemListViewModel{
 extension ItemListViewModel : ItemDataMapperProtocol {
     
     func resetItemsList() {
+        bag = Set<AnyCancellable>()
         let pub: AnyPublisher<CarsList, APIError> = self.networkService.request(Endpoint.justGet, headers: nil, parameters: nil )
         let _ = pub
             .receive(on: DispatchQueue.main)
@@ -42,11 +43,9 @@ extension ItemListViewModel : ItemDataMapperProtocol {
                   print("An API error caused a problem \(apiError)")
                 }
             } receiveValue: { [self] results in
-                Task {
                     if let res = results as? CarsList {
-                          self.model.itemsList = await self.itemResponseToItem(res)
+                          self.model.itemsList = self.itemResponseToItem(res)
                       }
-                  }
               }
               .store(in: &bag)
     }

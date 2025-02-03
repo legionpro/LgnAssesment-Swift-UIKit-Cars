@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: - jsut protocol for mapping  response data to items
 
-@MainActor
 protocol ItemDataMapperProtocol {
     func itemResponseToItem(_ response: CarsList?) -> [ItemDataModel]
 }
